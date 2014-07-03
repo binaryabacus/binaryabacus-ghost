@@ -48,7 +48,7 @@ config = {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-        url: 'http://binaryabacus.herokuapp.com',
+        url: 'http://www.binaryabacus.io',
         mail: {
             transport: 'SMTP',
             options: {

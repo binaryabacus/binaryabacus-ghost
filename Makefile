@@ -1,3 +1,10 @@
+# Symlink theme from node_modules to content/themes
+theme = $(shell cd node_modules/binaryabacus-theme; pwd)
+ifeq ($(HOME), /app)
+	# Harcode path on Heroku
+	theme = /app/node_modules/binaryabacus-theme
+endif
+
 all: 
 
 init:
@@ -7,6 +14,11 @@ init:
 
 install:
 	npm install
+	# git submodule update --init
+
+theme:
+	cd node_modules/binaryabacus-theme; make
+	ln -s /app/node_modules/binaryabacus-theme content/themes/binaryabacus-theme
 
 start:
 	npm start

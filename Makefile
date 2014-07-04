@@ -14,7 +14,6 @@ init:
 
 install:
 	npm install
-	# git submodule update --init
 
 theme:
 	cd node_modules/binaryabacus-theme; make

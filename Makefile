@@ -23,7 +23,7 @@ start:
 	npm start
 
 start-prod:
-	NODE_ENV=production node index.js
+	NODE_ENV=production PORT=2369 node index.js
 
 heroku-link:
 	-heroku git:remote -a binaryabacus

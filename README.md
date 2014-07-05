@@ -15,9 +15,10 @@
 ### Heroku
 
 - `make config` to set PostgresSQL config from https://postgres.heroku.com/databases/binaryabacus/gold
-- `make deploy` to deploy changes to heroku, and installs the latest theme from https://github.com/felixlaumon/binaryabacus-theme
+- `make deploy` to deploy changes to heroku, and install the latest theme from https://github.com/felixlaumon/binaryabacus-theme
 - `make restart` to restart all dynos
 - `make logs` to tail the logs
+- `make rebuild` to force rebuild, which will download and install the latest theme
 
 ## Reference
 

@@ -14,6 +14,7 @@ init:
 
 install:
 	npm install
+	heroku plugins:install https://github.com/heroku/heroku-repo.git
 
 theme:
 	cd node_modules/binaryabacus-theme; make
@@ -29,6 +30,7 @@ heroku-link:
 	-heroku git:remote -a binaryabacus
 
 deploy: heroku-link
+	-cd node_modules/binaryabacus-theme; git push
 	git push heroku master -f
 
 config: heroku-link
@@ -50,5 +52,8 @@ logs: heroku-link
 
 restart: heroku-link
 	heroku restart
+
+rebuild:
+	heroku repo:rebuild
 
 .PHONY: init install start start-prod heroku-link deploy config logs restart

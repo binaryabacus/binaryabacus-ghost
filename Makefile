@@ -8,7 +8,7 @@ endif
 all: 
 
 init:
-	curl -L mhttps://ghost.org/zip/ghost-0.4.2.zip > ghost.zip
+	curl -L mhttps://ghost.org/zip/ghost-0.5.0.zip > ghost.zip
 	unzip ghost.zip
 	rm ghost.zip
 
@@ -17,8 +17,9 @@ install:
 	heroku plugins:install https://github.com/heroku/heroku-repo.git
 
 theme:
+	-rm content/themes/binaryabacus-theme
 	cd node_modules/binaryabacus-theme; make
-	ln -s /app/node_modules/binaryabacus-theme content/themes/binaryabacus-theme
+	ln -s $(theme) content/themes/binaryabacus-theme
 
 start:
 	npm start
@@ -56,4 +57,4 @@ restart: heroku-link
 rebuild:
 	heroku repo:rebuild
 
-.PHONY: init install start start-prod heroku-link deploy config logs restart
+.PHONY: init install start start-prod heroku-link deploy config logs restart theme

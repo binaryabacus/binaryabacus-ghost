@@ -1,6 +1,6 @@
 // # Ghost Configuration
 // Setup your Ghost install for various environments
-// Documentation can be found at http://docs.ghost.org/usage/configuration/
+// Documentation can be found at http://support.ghost.org/config/
 
 var path = require('path'),
     config;
@@ -12,7 +12,7 @@ config = {
         url: 'http://my-ghost-blog.com',
 
         // Example mail config
-        // Visit http://docs.ghost.org/mail for instructions
+        // Visit http://support.ghost.org/mail for instructions
         // ```
         //  mail: {
         //      transport: 'SMTP',
@@ -48,20 +48,33 @@ config = {
     // When running Ghost in the wild, use the production environment
     // Configure your URL and mail settings here
     production: {
-        url: 'http://my-ghost-blog.com',
-        mail: {},
+        url: 'http://www.binaryabacus.io',
+        mail: {
+            transport: 'SMTP',
+            options: {
+                service: 'Mailgun',
+                auth: {
+                    user: process.env.MAILGUN_SMTP_LOGIN, // mailgun username
+                    pass: process.env.MAILGUN_SMTP_PASSWORD  // mailgun password
+                }
+            }
+        },
         database: {
-            client: 'sqlite3',
+            client: 'postgres',
             connection: {
-                filename: path.join(__dirname, '/content/data/ghost.db')
+                host: process.env.POSTGRES_HOST,
+                user: process.env.POSTGRES_USER,
+                password: process.env.POSTGRES_PASSWORD,
+                database: process.env.POSTGRES_DATABASE,
+                port: '5432'
             },
             debug: false
         },
         server: {
             // Host to be passed to node's `net.Server#listen()`
-            host: '127.0.0.1',
+            host: '0.0.0.0',
             // Port to be passed to node's `net.Server#listen()`, for iisnode set this to `process.env.PORT`
-            port: '2368'
+            port: process.env.PORT
         }
     },
 
@@ -85,34 +98,17 @@ config = {
         logging: false
     },
 
-    // ### Travis
-    // Automated testing run through GitHub
-    'travis-sqlite3': {
-        url: 'http://127.0.0.1:2369',
-        database: {
-            client: 'sqlite3',
-            connection: {
-                filename: path.join(__dirname, '/content/data/ghost-travis.db')
-            }
-        },
-        server: {
-            host: '127.0.0.1',
-            port: '2369'
-        },
-        logging: false
-    },
-
-    // ### Travis
-    // Automated testing run through GitHub
-    'travis-mysql': {
+    // ### Testing MySQL
+    // Used by Travis - Automated testing run through GitHub
+    'testing-mysql': {
         url: 'http://127.0.0.1:2369',
         database: {
             client: 'mysql',
             connection: {
                 host     : '127.0.0.1',
-                user     : 'travis',
+                user     : 'root',
                 password : '',
-                database : 'ghost_travis',
+                database : 'ghost_testing',
                 charset  : 'utf8'
             }
         },
@@ -123,9 +119,9 @@ config = {
         logging: false
     },
 
-    // ### Travis
-    // Automated testing run through GitHub
-    'travis-pg': {
+    // ### Testing pg
+    // Used by Travis - Automated testing run through GitHub
+    'testing-pg': {
         url: 'http://127.0.0.1:2369',
         database: {
             client: 'pg',
@@ -133,7 +129,7 @@ config = {
                 host     : '127.0.0.1',
                 user     : 'postgres',
                 password : '',
-                database : 'ghost_travis',
+                database : 'ghost_testing',
                 charset  : 'utf8'
             }
         },

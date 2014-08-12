@@ -2,3 +2,4 @@ node_modules
 ghost.zip
 content/data/*.db
 *.log
+content/themes/binaryabacus-theme
